@@ -1,0 +1,21 @@
+
+
+.hif_wrap .label
+{
+width: 12em;
+float: left;
+text-align: left;
+margin-right: 0.5em;
+display: block
+}
+
+.hif_wrap select, .hif_wrap input
+{
+width: 150px;
+}
+
+.hif_red
+{
+color: red;
+}
+
