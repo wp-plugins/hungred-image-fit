@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_
 Tags: hungred, image, fit, resize, hungred image fit, post, picture, shrink
 Requires at least: 2.7
 Tested up to: 2.8.4
-Stable tag: 0.1
+Stable tag: 0.2
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -12,9 +12,8 @@ This plugin is created by Clay Lua. Please visit the plugin page for more inform
 This is a very small and lightweight plugin that automatically adjust your images on your post with a maximum width. This is to eliminate the problem where your images are too large and overlap other parts of your website layout.
 Any image that are greater than the maximum width is being adjust according to its ratio aspect. Those images that are smaller than the maximum width is being ignored 
 On the other hand, resized images also have its tag enhanced to have 'title' and 'alt' attributes for better SEO.
+
 A control panel for adjusting the maximum width size is provided. 
-
-
 
 == Installation ==
 
@@ -31,9 +30,10 @@ A control panel for adjusting the maximum width size is provided.
 == Screenshots ==
 
 == Changelog ==
-
 = 0.1 =
 * initial version
+= 0.2 =
+* Update links and content of this documentation
 
 == Arbitrary section ==
 

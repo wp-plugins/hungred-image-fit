@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Hungred Image Fit
-Plugin URI: 
+Plugin URI: http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/
 Description: This plugin confine post image in an advance way to a given width size.
 Author: Clay lua
-Version: 0.1
+Version: 0.2
 Author URI: http://hungred.com
 */
 
