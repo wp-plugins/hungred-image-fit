@@ -4,7 +4,7 @@ Plugin Name: Hungred Image Fit
 Plugin URI: http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/
 Description: This plugin confine post image in an advance way to a given width size.
 Author: Clay lua
-Version: 0.3
+Version: 0.4
 Author URI: http://hungred.com
 */
 
@@ -142,7 +142,7 @@ function hif_modify_image($content)
 			$url = $container[0];
 			$home = get_settings('siteurl');
 			$path = str_replace($home, getcwd(), $url);
-			list($width, $height) = getimagesize($path);
+			list($width, $height) = @getimagesize($path);
 			if($row['hif_max_width'] < $width)
 			{
 				$flag = true;
@@ -166,7 +166,7 @@ function hif_modify_image($content)
 			{
 				$url = $container[0];
 				$path = str_replace('..', getcwd(), $url);
-				list($width, $height) = getimagesize($path);
+				list($width, $height) = @getimagesize($path);
 				if($row['hif_max_width'] < $width)
 				{
 					$width>$height?$ratio=$width/$height:$ratio=$height/$width;
