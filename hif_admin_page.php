@@ -34,26 +34,24 @@ $row = $wpdb->get_row($query,ARRAY_A);
 
 ?>
 <div class="hif_wrap">
-	<?php    echo "<h1>" . __( 'Hungred Image Fit' ) . "</h1>"; ?>
-	
+	<div class="wrap">
+	<?php    echo "<h2>" . __( 'Hungred Image Fit Configuration' ) . "</h2>"; ?>
+	</div>
 	<form name="hif_form" id="hif_form" class="hif_admin" onsubmit="return validate()" enctype="multipart/form-data" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<?php    echo "<h4>" . __( 'Settings' ) . "</h4>"; ?>
-		<p><div class='label'><?php _e("Max Width" ); ?></div><input type="text" id="hif_max_width" name="hif_max_width" value="<?php echo $row['hif_max_width']; ?>" size="20"></p>	
-		
-		
-		<p class="submit">
-		</div><input type="submit" id="submit" value="<?php _e('Update Options' ) ?>" />
-		</p>
-
-		<hr />
-		<h2><?php _e("Support" ); ?></h2>
-		<p>
-		Please visit <a href="http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/">hungred.com</a> for any support enquiry or email <a href='clay@hungred.com'>clay@hungred.com</a>. You can also show your appreciation by saying 'Thanks' on the <a href='http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/'>plugin page</a> or visits our sponsors on <a href="http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/">hungred.com</a> to help us keep up with the maintanance. If you like this plugin, you can buy me a <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">coffee</a>! You can also support this development with the donation button. Thanks!
-		<p>
-<a href='http://www.pledgie.com/campaigns/6187'><img alt='Click here to lend your support to: Hungred Wordpress Development and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/6187.png?skin_name=chrome' border='0' /></a>
-<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="ppbutton" onclick="window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Support%20Hungred%20Image%20Fit%20%20Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest');return false;">
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</p>
-		</p>
+		<div class="postbox-container" id="hsq_admin">
+		<div class="metabox-holder">		
+			<div class="meta-box-sortables ui-sortable" >
+				<div class='postbox'>	
+					<?php    echo "<h3  class='hndle'>" . __( 'Settings' ) . "</h3>"; ?>
+					<div class='inside size'>
+					<p><div class='label'><?php _e("Max Width" ); ?></div><input type="text" id="hif_max_width" name="hif_max_width" value="<?php echo $row['hif_max_width']; ?>" size="20"></p>	
+					<p class="submit">
+					<input type="submit" id="submit" value="<?php _e('Update Options' ) ?>" />
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</form>
 </div>

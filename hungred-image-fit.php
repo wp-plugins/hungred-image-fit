@@ -4,7 +4,7 @@ Plugin Name: Hungred Image Fit
 Plugin URI: http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/
 Description: This plugin confine post image in an advance way to a given width size.
 Author: Clay lua
-Version: 0.4
+Version: 0.5
 Author URI: http://hungred.com
 */
 
@@ -25,7 +25,9 @@ Author URI: http://hungred.com
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
+require_once("hungred.php");
+$hungredObj = new Hungred_Tools();
+add_action('wp_dashboard_setup', array($hungredObj,'widget_setup'));	
 /*
 Structure of the plugin
 */
@@ -58,7 +60,31 @@ Parameter: 	NONE
 Description: this method depend on hif_admin_page.php to display all the relevant information on our admin page
 */
 function hif_admin(){
+	global $hungredObj;
+	$support_links = "";
+	$plugin_links = array();
+	$plugin_links["url"] = "http://hungred.com/useful-information/wordpress-plugin-hungred-image-fit/";
+	$plugin_links["wordpress"] = "hungred-image-fit";
+	$plugin_links["development"] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Support%20Hungred%20Post%20Thumbnail%20Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest";
+	$plugin_links["donation"] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
+	$plugin_links["pledge"] = "<a href='http://www.pledgie.com/campaigns/6187'><img alt='Click here to lend your support to: Hungred Wordpress Development and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/6187.png?skin_name=chrome' border='0' /></a>";
+	$support_links = "http://wordpress.org/tags/hungred-image-fit";
 	include('hif_admin_page.php');  
+	?>
+	<div class="postbox-container" id="hpt_sidebar" style="width:20%;">
+		<div class="metabox-holder">	
+			<div class="meta-box-sortables">
+				<?php
+					$hungredObj->news(); 
+					$hungredObj->plugin_like($plugin_links);
+					$hungredObj->plugin_support($support_links);
+				?>
+			</div>
+			<br/><br/><br/>
+		</div>
+	</div>
+	<?php
+	
 }
 
 add_action('admin_menu', 'add_hif_to_admin_panel_actions');

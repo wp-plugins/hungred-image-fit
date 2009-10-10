@@ -1,5 +1,17 @@
-
-
+.postbox div.inside{position:relative;padding: 10px;}
+.size{min-height: 0 !important;}
+#hif_admin{width: 70%;float: left;}
+div.inside ul li{line-height: 16px;list-style: square;}
+div.inside ul {
+	margin-left: 20px;
+}
+div.inside ul li {
+	list-style: square;
+	line-height:16px;
+}
+div.inside ul li.rss {
+	list-style-image: url(/wp-includes/images/rss.png);
+}
 .hif_wrap .label
 {
 width: 12em;
@@ -9,7 +21,7 @@ margin-right: 0.5em;
 display: block
 }
 
-.hif_wrap select, .hif_wrap input
+.hif_wrap select, .hif_wrap input[type='text']
 {
 width: 150px;
 }
