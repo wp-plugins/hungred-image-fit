@@ -1,15 +1,15 @@
-.postbox div.inside{position:relative;padding: 10px;}
-.size{min-height: 0 !important;}
+#hif_admin .postbox div.inside{position:relative;padding: 10px;}
+#hif_admin .size{min-height: 0 !important;}
 #hif_admin{width: 70%;float: left;}
-div.inside ul li{line-height: 16px;list-style: square;}
-div.inside ul {
+ul.hungred_list li{line-height: 16px;list-style: square;}
+ul.hungred_list{
 	margin-left: 20px;
 }
-div.inside ul li {
+ul.hungred_list li {
 	list-style: square;
 	line-height:16px;
 }
-div.inside ul li.rss {
+ul.hungred_list li.rss {
 	list-style-image: url(/wp-includes/images/rss.png);
 }
 .hif_wrap .label

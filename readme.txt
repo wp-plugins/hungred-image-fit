@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_
 Tags: hungred, image, fit, resize, hungred image fit, post, picture, shrink
 Requires at least: 2.7
 Tested up to: 2.8.4
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -41,8 +41,6 @@ A control panel for adjusting the maximum width size is provided.
 = 0.5 =
 * Improve Interface
 * Added News
+= 0.5.1 =
+* Fixed plugin style that affect other style
 
-== Arbitrary section ==
-
-
-== A brief Markdown Example ==

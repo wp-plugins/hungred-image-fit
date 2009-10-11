@@ -48,7 +48,7 @@ if (!class_exists('Hungred_Tools')) {
 
 		function plugin_like($link) {
 			$content = '<p>'.__('Why not do any or all of the following:','hungredplugin').'</p>';
-			$content .= '<ul>';
+			$content .= '<ul class="hungred_list">';
 			$content .= '<li><a href="'.$link["url"].'" target="_blank">'.__('Link or help us visit our sponsors.','hungredplugin').'</a></li>';
 			$content .= '<li><a href="http://wordpress.org/extend/plugins/'.$link["wordpress"].'/" target="_blank">'.__('Give it a good rating on WordPress.org.','hungredplugin').'</a></li>';
 			$content .= '<li><a href="'.$link["development"].'" target="_blank">'.__('Contribute to hungred development.','hungredplugin').'</a></li>';
@@ -66,7 +66,7 @@ if (!class_exists('Hungred_Tools')) {
 		function news() {
 			require_once(ABSPATH.WPINC.'/rss.php');  
 			if ( $rss = fetch_rss( 'http://hungred.com/feed/' ) ) {
-				$content = '<ul>';
+				$content = '<ul class="hungred_list">';
 				$rss->items = array_slice( $rss->items, 0, 3 );
 				foreach ( (array) $rss->items as $item ) {
 					$content .= '<li class="hungred">';
@@ -75,6 +75,7 @@ if (!class_exists('Hungred_Tools')) {
 				}
 				$content .= '<li class="rss"><a href="http://hungred.com/feed/">Subscribe to RSS</a></li>';
 				//$content .= '<li class="email"><a href="http://hungred.com/">Subscribe by email</a></li>';
+				$content .= '</ul>';
 				$this->postbox('hungredplugin', 'Latest news from Hungred Dot Com', $content);
 			} else {
 				$this->postbox('hungredplugin', 'Latest news from Hungred Dot Com', 'No news at the moment.');
