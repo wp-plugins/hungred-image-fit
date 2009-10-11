@@ -1,6 +1,8 @@
 #hif_admin .postbox div.inside{position:relative;padding: 10px;}
 #hif_admin .size{min-height: 0 !important;}
 #hif_admin{width: 70%;float: left;}
+.hif_wrap, #hungred_sidebar{font-family: 'Myriad Pro', sans-serif, Helvetica !important;}
+.hungred_list{padding: 0.5em;}
 ul.hungred_list li{line-height: 16px;list-style: square;}
 ul.hungred_list{
 	margin-left: 20px;

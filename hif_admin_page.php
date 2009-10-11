@@ -38,7 +38,7 @@ $row = $wpdb->get_row($query,ARRAY_A);
 	<?php    echo "<h2>" . __( 'Hungred Image Fit Configuration' ) . "</h2>"; ?>
 	</div>
 	<form name="hif_form" id="hif_form" class="hif_admin" onsubmit="return validate()" enctype="multipart/form-data" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<div class="postbox-container" id="hsq_admin">
+		<div class="postbox-container" id="hif_admin">
 		<div class="metabox-holder">		
 			<div class="meta-box-sortables ui-sortable" >
 				<div class='postbox'>	

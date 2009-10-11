@@ -59,7 +59,7 @@ if (!class_exists('Hungred_Tools')) {
 		}	
 
 		function plugin_support($url) {
-			$content = '<p>'.__('If you have any problems with this plugin or good ideas for improvements or new features, please talk about them in the','hungredplugin').' <a href="'.$url.'">'.__("Support forums",'hungredplugin').'</a>.</p>';
+			$content = '<p class="hungred_list">'.__('If you have any problems with this plugin or good ideas for improvements or new features, please talk about them in the','hungredplugin').' <a href="'.$url.'">'.__("Support forums",'hungredplugin').'</a>.</p>';
 			$this->postbox($this->hook.'support', 'Need support?', $content);
 		}
 
