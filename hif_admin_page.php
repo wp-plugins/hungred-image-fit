@@ -15,10 +15,10 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 if(isset($_POST['hif_max_width']))
 {
 	update_option('hif_max_width', $_POST['hif_max_width']);
+	$max_width = $_POST['hif_max_width'];
 }else{
 	$max_width = get_option('hif_max_width');
 }

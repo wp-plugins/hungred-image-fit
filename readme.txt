@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_
 Tags: hungred, image, fit, resize, hungred image fit, post, picture, shrink
 Requires at least: 2.7
 Tested up to: 2.8.6
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -51,3 +51,5 @@ A control panel for adjusting the maximum width size is provided.
 * Fixed Image already resize to a smaller size than original but plugin resize was used instead
 * Fixed regular express miss image issue.
 * Change font type to prevent mac user who use firefox or chrome browser having problem viewing the page
+= 0.6.1 =
+* Fixed after update did not display properly on the admin page.
