@@ -20,15 +20,6 @@
 if (!class_exists('Hungred_Tools')) {
 	class Hungred_Tools {
 
-		var $hook 		= '';
-		var $filename	= '';
-		var $longname	= '';
-		var $shortname	= '';
-		var $ozhicon	= '';
-		var $optionname = '';
-		var $homepage	= '';
-		var $accesslvl	= 'manage_options';
-		
 		function Hungred_Tools() {	
 			add_action('wp_dashboard_setup', array(&$this,'widget_setup'));	
 		}

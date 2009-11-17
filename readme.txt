@@ -3,8 +3,8 @@ Contributors: Clay Lua
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: hungred, image, fit, resize, hungred image fit, post, picture, shrink
 Requires at least: 2.7
-Tested up to: 2.8.4
-Stable tag: 0.5.2
+Tested up to: 2.8.6
+Stable tag: 0.6.0
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -45,3 +45,9 @@ A control panel for adjusting the maximum width size is provided.
 * Fixed plugin style that affect other style
 = 0.5.2 =
 * Fixed and enhance styling
+= 0.6.0 =
+* Structure Change
+* Improve Logic
+* Fixed Image already resize to a smaller size than original but plugin resize was used instead
+* Fixed regular express miss image issue.
+* Change font type to prevent mac user who use firefox or chrome browser having problem viewing the page

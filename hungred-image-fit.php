@@ -4,7 +4,7 @@ Plugin Name: Hungred Image Fit
 Plugin URI: http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/
 Description: This plugin confine post image in an advance way to a given width size.
 Author: Clay lua
-Version: 0.5.2
+Version: 0.6.0
 Author URI: http://hungred.com
 */
 
@@ -115,16 +115,7 @@ Description: the structure of our Wordpress plugin
 */
 function hif_install()
 {
-	global $wpdb;
-    $table = $wpdb->prefix."hif_options";
-    $structure = "CREATE TABLE IF NOT EXISTS `".$table."` (
-		hif_option_id DOUBLE NOT NULL AUTO_INCREMENT ,
-        hif_max_width Double NOT NULL DEFAULT 600,
-		UNIQUE KEY id (hif_option_id)
-    );";
-    $wpdb->query($structure);
-	$wpdb->query("INSERT INTO $table(hif_option_id)
-	VALUES('1')");
+	update_option('hif_max_width', '600');
 }
 if ( function_exists('register_activation_hook') )
 	register_activation_hook('hungred-image-fit/hungred-image-fit.php', 'hif_install');
@@ -137,10 +128,7 @@ Description: the structure of our Wordpress plugin
 */
 function hif_uninstall()
 {
-	global $wpdb;
-	$table = $wpdb->prefix."hif_options";
-	$structure = "DROP TABLE `".$table."`";
-	$wpdb->query($structure);
+	delete_option('hif_max_width');
 }
 if ( function_exists('register_uninstall_hook') )
     register_uninstall_hook(__FILE__, 'hif_uninstall');
@@ -150,15 +138,17 @@ function hif_modify_image($content)
 	global $wpdb;
 	$table = $wpdb->prefix."hif_options";
 	//retrieve new data
-	$query = "SELECT * FROM `".$table."` WHERE 1 AND `hif_option_id` = '1' limit 1";
-	$row = $wpdb->get_row($query,ARRAY_A);
+	$max_width = get_option('hif_max_width');
 	//$content = get_the_content();
 	
-	preg_match_all('/<img(.*)\"\s+\/>/i', $content, $matches);
+	preg_match_all('/(<img(.*?)\"\s+\/>)/i', $content, $matches);
 
 	if($matches[0] != NULL)
 	foreach($matches[0] as $e)
 	{
+		$defined_width = hif_extract_options('width="', $e);
+		if(trim($defined_width) == "")
+			$defined_width = "";
 		$flag = false;
 		preg_match_all('/https?:\/\/[\S\w]+\.(jpg|jpeg|gif|png)/i', $e, $url, PREG_SET_ORDER);
 		$container = $url[0];
@@ -169,13 +159,13 @@ function hif_modify_image($content)
 			$home = get_settings('siteurl');
 			$path = str_replace($home, getcwd(), $url);
 			list($width, $height) = @getimagesize($path);
-			if($row['hif_max_width'] < $width)
+			if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
 			{
 				$flag = true;
 				$width>$height?$ratio=$width/$height:$ratio=$height/$width;
-				$reduce_width = $width - $row['hif_max_width'];
+				$reduce_width = $width - $max_width;
 				$reduce_height = $reduce_width / $ratio;
-				$width = $row['hif_max_width'];
+				$width = $max_width;
 				$height -= $reduce_height;
 				$post_title = the_title('','', false);
 				$image_name = hif_extract_file_name($container[0]);
@@ -193,12 +183,12 @@ function hif_modify_image($content)
 				$url = $container[0];
 				$path = str_replace('..', getcwd(), $url);
 				list($width, $height) = @getimagesize($path);
-				if($row['hif_max_width'] < $width)
+				if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
 				{
 					$width>$height?$ratio=$width/$height:$ratio=$height/$width;
-					$reduce_width = $width - $row['hif_max_width'];
+					$reduce_width = $width - $max_width;
 					$reduce_height = $reduce_width / $ratio;
-					$width = $row['hif_max_width'];
+					$width = $max_width;
 					$height -= $reduce_height;
 					$post_title = the_title('','', false);
 					$image_name = hif_extract_file_name($container[0]);
@@ -212,6 +202,23 @@ function hif_modify_image($content)
 	return $content;
 }
 add_filter('the_content', 'hif_modify_image');
+function hif_extract_options($find, $src, $change="")
+{
+	$start = strpos($src, $find);
+	if($start !== FALSE)
+	{
+		$end = strpos($src, '"', $start+10);	
+		$remove = substr($src, $start, $end-$start+1);
+		if($remove != "")
+		{
+			$start = strpos($src, '"', $start+1);
+			$value = substr($src, $start+1, $end-$start-1);
+			//$src = str_replace($remove, $change, $src);
+			return $value;
+		}
+	}
+	return "";
+}
 function hif_extract_file_name($string)
 {
 	$basename = basename($string);
