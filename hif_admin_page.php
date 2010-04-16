@@ -15,12 +15,15 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-if(isset($_POST['hif_max_width']))
+if(isset($_POST['submit']))
 {
 	update_option('hif_max_width', $_POST['hif_max_width']);
 	$max_width = $_POST['hif_max_width'];
+	update_option('hif_tags', $_POST['hif_tags']);
+	
 }else{
 	$max_width = get_option('hif_max_width');
+	$_POST['hif_tags'] = get_option('hif_tags');
 }
 
 ?>
@@ -36,8 +39,26 @@ if(isset($_POST['hif_max_width']))
 					<?php    echo "<h3  class='hndle'>" . __( 'Settings' ) . "</h3>"; ?>
 					<div class='inside size'>
 					<p><div class='label'><?php _e("Max Width" ); ?></div><input type="text" id="hif_max_width" name="hif_max_width" value="<?php echo $max_width; ?>" size="20"></p>	
+					<p><div class='label'><?php _e("Tagging" ); ?></div>
+
+					<select multiple="multiple" size="5" name="hif_tags[]" style="height:100px">
+					<?php
+						$tags = get_terms('post_tag', 'orderby=count&hide_empty=0');
+						foreach($tags as $tag){
+							if(!is_array($_POST['hif_tags']))
+								$_POST['hif_tags'] = array();
+							if(in_array($tag->term_id, $_POST['hif_tags']))
+							echo "<option selected value='".$tag->term_id."'>".$tag->name."</option>";
+							else
+							echo "<option value='".$tag->term_id."'>".$tag->name."</option>";
+						}
+					?>
+					</select>
+					<br/>
+					<small>select more than one to resize only these tags. Deselect all to resize all.</small>
+					</p>	
 					<p class="submit">
-					<input type="submit" id="submit" value="<?php _e('Update Options' ) ?>" />
+					<input type="submit" id="submit" name="submit" value="<?php _e('Update Options' ) ?>" />
 					</p>
 					</div>
 				</div>

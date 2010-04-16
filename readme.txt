@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: Clay Lua
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
-Tags: hungred, image, fit, resize, hungred image fit, post, picture, shrink
+Tags: hungred, image, fit, resize,image resize, custom resize, hungred image fit, post, picture, shrink,smaller,picture resize, picture
 Requires at least: 2.7
-Tested up to: 2.8.6
-Stable tag: 0.6.1
+Tested up to: 2.9.2
+Stable tag: 0.7.0
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -15,6 +15,12 @@ On the other hand, resized images also have its tag enhanced to have 'title' and
 
 A control panel for adjusting the maximum width size is provided. 
 
+For version 0.7 onwards, there is a few new features. 
+	1. User now can resize post images with specific tag
+	2. User can remove resize capability of a particular post by placing "noresize" on the alt attribute of the img tag (<img>)
+	3. User can resize a particular post by placing "resize"  on the alt attribute of the img tag (<img>) for user to have absolute control over resizing of image.
+	4. Resize method has changed to an optimum one where resizing will not delay your website due to the waiting time for image detail using PHP getimagesize function.
+	
 == Installation ==
 
    1. Download the latest version of the Hungred Image Fit to your computer.
@@ -53,3 +59,10 @@ A control panel for adjusting the maximum width size is provided.
 * Change font type to prevent mac user who use firefox or chrome browser having problem viewing the page
 = 0.6.1 =
 * Fixed after update did not display properly on the admin page.
+= 0.7.0 =
+* Optimize the code.
+* Added new function that will resize image that has a specific tag (tagging)
+* Added new function that will prevent any image from being resize
+* Added new function that will resize any particular image although it does not have a specific tag.
+* Update new resize function method that won't affect site loading time.
+* Remove majority operation to reduce the number of codes being executed.

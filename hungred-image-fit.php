@@ -4,7 +4,7 @@ Plugin Name: Hungred Image Fit
 Plugin URI: http://hungred.com/2009/09/17/useful-information/wordpress-plugin-hungred-image-fit/
 Description: This plugin confine post image in an advance way to a given width size.
 Author: Clay lua
-Version: 0.6.1
+Version: 0.7.0
 Author URI: http://hungred.com
 */
 
@@ -24,7 +24,10 @@ Author URI: http://hungred.com
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
+if ( ! defined( 'HIF_PLUGIN_DIR' ) )
+	define( 'HIF_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . plugin_basename( dirname( __FILE__ ) ) );
+if ( ! defined( 'HIF_PLUGIN_URL' ) )
+	define( 'HIF_PLUGIN_URL', WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) );
 require_once("hungred.php");
 $hungredObj = new Hungred_Tools();
 add_action('wp_dashboard_setup', array($hungredObj,'widget_setup'));	
@@ -115,10 +118,10 @@ Description: the structure of our Wordpress plugin
 */
 function hif_install()
 {
-	update_option('hif_max_width', '600');
+	add_option('hif_max_width', '600');
 }
 if ( function_exists('register_activation_hook') )
-	register_activation_hook('hungred-image-fit/hungred-image-fit.php', 'hif_install');
+	register_activation_hook(__FILE__, 'hif_install');
 	
 /*
 Name: hif_uninstall
@@ -135,70 +138,108 @@ if ( function_exists('register_uninstall_hook') )
 	
 function hif_modify_image($content)
 {
-	global $wpdb;
+	global $wpdb,$post;
+	
 	$table = $wpdb->prefix."hif_options";
 	//retrieve new data
 	$max_width = get_option('hif_max_width');
-	//$content = get_the_content();
+	$tags = get_option('hif_tags');;
+	$post_tags = get_the_tags($post->ID);
+	$flag = false;
+	if(is_array($tags))
+	foreach($post_tags as $tag){
+		if(in_array($tag->term_id, $tags)){
+			$flag = true;
+			break;
+		}
+	}
+	$value = get_post_meta($post->ID, 'HIF_RESIZE', true);
 	
-	preg_match_all('/(<img(.*?)\"\s+\/>)/i', $content, $matches);
-
-	if($matches[0] != NULL)
-	foreach($matches[0] as $e)
-	{
-		$defined_width = hif_extract_options('width="', $e);
-		if(trim($defined_width) == "")
-			$defined_width = "";
-		$flag = false;
-		preg_match_all('/https?:\/\/[\S\w]+\.(jpg|jpeg|gif|png)/i', $e, $url, PREG_SET_ORDER);
-		$container = $url[0];
-		if($container != NULL)
+		//$content = get_the_content();
+		preg_match_all('/(<img(.*?)"?\'?\s*?\/?>)/i', $content, $matches);
+		if($matches[0] != NULL)
+		foreach($matches[0] as $e)
 		{
 			
-			$url = $container[0];
-			$home = get_settings('siteurl');
-			$path = str_replace($home, getcwd(), $url);
-			list($width, $height) = @getimagesize($path);
-			if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
-			{
-				$flag = true;
-				$width>$height?$ratio=$width/$height:$ratio=$height/$width;
-				$reduce_width = $width - $max_width;
-				$reduce_height = $reduce_width / $ratio;
-				$width = $max_width;
-				$height -= $reduce_height;
-				$post_title = the_title('','', false);
-				$image_name = hif_extract_file_name($container[0]);
-				$newImg = "<img src='".$container[0]."' width='".$width."px' height='".$height."px' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
-	
-				$content = str_replace($e, $newImg,$content);
-			}
-		}
-		if(!$flag)
-		{
-			preg_match_all('/\.\.\/[\S\w]+\.(jpg|jpeg|gif|png)/i', $e, $result, PREG_SET_ORDER);
-			$container = $result[0];
-			if($container != NULL)
-			{
-				$url = $container[0];
-				$path = str_replace('..', getcwd(), $url);
-				list($width, $height) = @getimagesize($path);
-				if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
-				{
-					$width>$height?$ratio=$width/$height:$ratio=$height/$width;
-					$reduce_width = $width - $max_width;
-					$reduce_height = $reduce_width / $ratio;
-					$width = $max_width;
-					$height -= $reduce_height;
-					$post_title = the_title('','', false);
-					$image_name = hif_extract_file_name($container[0]);
-					$newImg = "<img src='".$container[0]."' width='".$width."px' height='".$height."px' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
-					$content = str_replace($e, $newImg,$content);
+			$alt = hif_extract_options('alt="', $e);
+			if(trim($alt) == "")
+			$alt = hif_extract_options("alt='", $e);
+			if($alt=="noresize")
+				continue;
+			else if($alt == "resize"){
+			
+			}else{
+				if(!$flag && is_array($tags)){
+				break;
 				}
 			}
+			
+			// $defined_width = hif_extract_options('width="', $e);
+			// if(trim($defined_width) == "")
+				// $defined_width = hif_extract_options2("width='", $e);
+			// if(trim($defined_width) == "")
+				// $defined_width = "";
+			$flag = false;
+			preg_match_all('/https?:\/\/[\S\w]+\.(jpg|jpeg|gif|png)/i', $e, $url, PREG_SET_ORDER);
+			$container = $url[0];
+			$find = strtolower(get_option('home'));
+			$str = strtolower($container[0]);
+			if(!strstr($str, $find)){
+				continue;
+			}
+			if($container != NULL)
+			{
+				
+				$url = $container[0];
+				// $home = get_settings('siteurl');
+				// $path = str_replace($home, getcwd(), $url);
+				try{
+					// list($width, $height) = getimagesize($path, $info) or die();
+					// if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
+					// {
+						// $flag = true;
+						// $ratio= $width>$height?$width/$height:$height/$width;
+						// $reduce_width = $width - $max_width;
+						// $reduce_height = $reduce_width / $ratio;
+						// $width = $max_width;
+						// $height -= $reduce_height;
+						$post_title = the_title('','', false);
+						$image_name = hif_extract_file_name($container[0]);
+						$newImg = "<img src='". HIF_PLUGIN_URL.'/scripts/timthumb.php?src='.$container[0].'&h=0&w='.$max_width.'&zc=1&q=100'."' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
+			
+						$content = str_replace($e, $newImg,$content);
+					//}
+				}catch(customException $e){
+					echo $e->errorMessage();
+				}
+				
+			}
+			if(!$flag)
+			{
+				preg_match_all('/\.\.\/[\S\w]+\.(jpg|jpeg|gif|png)/i', $e, $result, PREG_SET_ORDER);
+				$container = $result[0];
+				if($container != NULL)
+				{
+					$url = $container[0];
+					// $path = str_replace('..', getcwd(), $url);
+					// list($width, $height) = @getimagesize($path, $info);
+					// if($max_width < $width && ($max_width < $defined_width ||$defined_width ==""))
+					// {
+						// $ratio= $width>$height?$width/$height:$height/$width;
+						// $reduce_width = $width - $max_width;
+						// $reduce_height = $reduce_width / $ratio;
+						// $width = $max_width;
+						// $height -= $reduce_height;
+						$post_title = the_title('','', false);
+						$image_name = hif_extract_file_name($container[0]);
+						$newImg = "<img src='". HIF_PLUGIN_URL.'/scripts/timthumb.php?src='.$container[0].'&h=0&w='.$max_width.'&zc=1&q=100'."' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
+						$content = str_replace($e, $newImg,$content);
+					// }
+				}
+			}
+			
 		}
 
-	}
 	return $content;
 }
 add_filter('the_content', 'hif_modify_image');
@@ -212,6 +253,24 @@ function hif_extract_options($find, $src, $change="")
 		if($remove != "")
 		{
 			$start = strpos($src, '"', $start+1);
+			$value = substr($src, $start+1, $end-$start-1);
+			//$src = str_replace($remove, $change, $src);
+			return $value;
+		}
+	}
+	return "";
+}
+
+function hif_extract_options2($find, $src, $change="")
+{
+	$start = strpos($src, $find);
+	if($start !== FALSE)
+	{
+		$end = strpos($src, "'", $start+10);	
+		$remove = substr($src, $start, $end-$start+1);
+		if($remove != "")
+		{
+			$start = strpos($src, "'", $start+1);
 			$value = substr($src, $start+1, $end-$start-1);
 			//$src = str_replace($remove, $change, $src);
 			return $value;
