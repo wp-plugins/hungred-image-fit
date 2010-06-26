@@ -3,8 +3,8 @@ Contributors: Clay Lua
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: hungred, image, fit, resize,image resize, custom resize, hungred image fit, post, picture, shrink,smaller,picture resize, picture
 Requires at least: 2.7
-Tested up to: 2.9.2
-Stable tag: 0.7.0
+Tested up to: 3.0.0
+Stable tag: 0.7.1
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
@@ -66,3 +66,5 @@ For version 0.7 onwards, there is a few new features.
 * Added new function that will resize any particular image although it does not have a specific tag.
 * Update new resize function method that won't affect site loading time.
 * Remove majority operation to reduce the number of codes being executed.
+= 0.7.1 =
+* fixed access problem on admin page for wordpress 3.0
