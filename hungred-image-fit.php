@@ -210,9 +210,13 @@ function hif_modify_image($content)
 						// $reduce_height = $reduce_width / $ratio;
 						// $width = $max_width;
 						// $height -= $reduce_height;
-                                                list($width, $height) = getjpegsize($url);
-                                                if($width < $max_width)
-                                                      continue;
+                                                try{
+                                                   list($width, $height) = getjpegsize($url);
+                                                   if($width < $max_width)
+                                                         continue;
+                                                }catch(Exception $e){
+
+                                                }
 						$post_title = the_title('','', false);
 						$image_name = hif_extract_file_name($container[0]);
 						$newImg = "<img src='". HIF_PLUGIN_URL.'/scripts/timthumb.php?src='.$container[0].'&h=0&w='.$max_width.'&zc=1&q=100'."' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
@@ -240,9 +244,13 @@ function hif_modify_image($content)
 						// $reduce_height = $reduce_width / $ratio;
 						// $width = $max_width;
 						// $height -= $reduce_height;
-                                                list($width, $height) = getjpegsize($url);
-                                                if($width < $max_width)
-                                                      continue;
+                                                try{
+                                                   list($width, $height) = getjpegsize($url);
+                                                   if($width < $max_width)
+                                                         continue;
+                                                }catch(Exception $e){
+
+                                                }
 						$post_title = the_title('','', false);
 						$image_name = hif_extract_file_name($container[0]);
 						$newImg = "<img src='". HIF_PLUGIN_URL.'/scripts/timthumb.php?src='.$container[0].'&h=0&w='.$max_width.'&zc=1&q=100'."' title='".$post_title."' alt='".$image_name." ".$post_title."'/>";
