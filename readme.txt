@@ -3,24 +3,24 @@ Contributors: Clay Lua
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=i_ah_yong%40hotmail%2ecom&lc=MY&item_name=Coffee&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: hungred, image, fit, resize,image resize, custom resize, hungred image fit, post, picture, shrink,smaller,picture resize, picture
 Requires at least: 2.7
-Tested up to: 3.0.0
-Stable tag: 0.7.1
+Tested up to: 3.2.1
+Stable tag: 0.7.2
 
 This plugin is created by Clay Lua. Please visit the plugin page for more information.
 
 == Description ==
 This is a very small and lightweight plugin that automatically adjust your images on your post with a maximum width. This is to eliminate the problem where your images are too large and overlap other parts of your website layout.
-Any image that are greater than the maximum width is being adjust according to its ratio aspect. Those images that are smaller than the maximum width is being ignored 
+Any image that are greater than the maximum width is being adjust according to its ratio aspect. Those images that are smaller than the maximum width is being ignored
 On the other hand, resized images also have its tag enhanced to have 'title' and 'alt' attributes for better SEO.
 
-A control panel for adjusting the maximum width size is provided. 
+A control panel for adjusting the maximum width size is provided.
 
-For version 0.7 onwards, there is a few new features. 
+For version 0.7 onwards, there is a few new features.
 	1. User now can resize post images with specific tag
 	2. User can remove resize capability of a particular post by placing "noresize" on the alt attribute of the img tag (<img>)
 	3. User can resize a particular post by placing "resize"  on the alt attribute of the img tag (<img>) for user to have absolute control over resizing of image.
 	4. Resize method has changed to an optimum one where resizing will not delay your website due to the waiting time for image detail using PHP getimagesize function.
-	
+
 == Installation ==
 
    1. Download the latest version of the Hungred Image Fit to your computer.
@@ -68,3 +68,6 @@ For version 0.7 onwards, there is a few new features.
 * Remove majority operation to reduce the number of codes being executed.
 = 0.7.1 =
 * fixed access problem on admin page for wordpress 3.0
+= 0.7.2 =
+* updated timthumb plugin
+* fixed issue where smaller image is resize although it is already smaller
